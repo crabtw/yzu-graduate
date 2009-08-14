@@ -1,0 +1,18 @@
+-- cse98
+min-credit 136
+
+-- 必修
+type("必修") * 46,
+
+-- 通識
+id("GN"), id("LS"), id("LE"), id("GS"),
+id("GN") | id("LS") | id("LE") | id("GS"),
+
+-- 三選一
+id("CS359") | id("CS354") | id("CS334"),
+id("CS377") | id("CS352") | id("CS405"),
+id("CS378") | id("CS320") | id("CS338") | id("CS379"),
+id("CS401") | id("CS313") | id("CS314"),
+
+-- 系選修
+id("CS") * 7

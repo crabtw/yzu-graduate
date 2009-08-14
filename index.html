@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+    $('#spinner').hide();
+
+    $('#spinner').ajaxStart(function() {
+        $(this).show();
+    });
+    $('#spinner').ajaxSuccess(function() {
+        $(this).hide();
+    });
+
+    $('#spinner').ajaxError(function() {
+        $(this).hide();
+        $('#rules').val("No such rules");
+    });
+
+    $('#fetch').click(function() {
+        var dept = $.trim($('#dept').val());
+        var year = $.trim($('#year').val());
+
+        if(dept != '' && year != '') {
+            $.get('rules/'+dept+'/'+year+'.txt', {}, function(xml, stat) {
+                $('#rules').val(xml)
+            });
+        }
+    });
+
+    $('#submit').click(function() {
+        var uid = $.trim($('#uid').val());
+        var pwd = $.trim($('#pwd').val());
+        var rules = $.trim($('#rules').val());
+
+        if(uid != '' && pwd != '' && rules != '') {
+            $.post('test.fcgi', { uid: uid, pwd: pwd, rules: rules }, function(xml) {
+                $('#result').val(xml);
+            });
+        }
+    });
+
+    $('#fetch').click();
+});
+-->
+</script>
+<title>graduation test</title>
+</head>
+<body>
+<div>
+  <p>帳號 (u): <input accesskey="u" id="uid" /></p>
+  <p>密碼 (p): <input accesskey="p" type="password" id="pwd" /></p>
+  <p>
+    <button accesskey="s" id="submit">檢測 (s)</button>
+    <img id="spinner" alt="loading" style="margin-left:10px" src="../imgs/spinner_moz.gif" />
+  </p>
+  <p>系別 (d): <input accesskey="d" value="cse" id="dept" /></p>
+  <p>學年 (y): <input accesskey="y" value="94" id="year" /></p> 
+  <p><button accesskey="r" id="fetch">取得規則 (r)</button></p>
+  <p>
+    <textarea id="rules" rows="30" cols="50"></textarea>
+    <textarea id="result" rows="30" cols="50"></textarea>
+  </p>
+</div>
+</body>
+</html>
