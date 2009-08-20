@@ -3,6 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+.row {
+    clear: both;
+}
+
+.col {
+    float: left;
+    margin-left: 20px;
+}
+</style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript">
 <!--
@@ -39,7 +49,7 @@ $(document).ready(function() {
 
         if(uid != '' && pwd != '' && rules != '') {
             $.post('test.fcgi', { uid: uid, pwd: pwd, rules: rules }, function(xml) {
-                $('#result').val(xml);
+                $('#result').html(xml);
             });
         }
     });
@@ -51,20 +61,39 @@ $(document).ready(function() {
 <title>graduation test</title>
 </head>
 <body>
-<div>
-  <p>帳號 (u): <input accesskey="u" id="uid" /></p>
-  <p>密碼 (p): <input accesskey="p" type="password" id="pwd" /></p>
-  <p>
-    <button accesskey="s" id="submit">檢測 (s)</button>
-    <img id="spinner" alt="loading" style="margin-left:10px" src="../imgs/spinner_moz.gif" />
-  </p>
-  <p>系別 (d): <input accesskey="d" value="cse" id="dept" /></p>
-  <p>學年 (y): <input accesskey="y" value="94" id="year" /></p> 
-  <p><button accesskey="r" id="fetch">取得規則 (r)</button></p>
-  <p>
-    <textarea id="rules" rows="30" cols="50"></textarea>
-    <textarea id="result" rows="30" cols="50"></textarea>
-  </p>
-</div>
+  <div class="row">
+    <div class="col">
+      <p>帳號 (u): <input accesskey="u" id="uid" /></p>
+      <p>密碼 (p): <input accesskey="p" type="password" id="pwd" /></p>
+      <p>
+        <button accesskey="s" id="submit">檢測 (s)</button>
+        <img id="spinner" alt="loading" style="margin-left:10px" src="../imgs/spinner_moz.gif" />
+      </p>
+      <p>系別 (d): <input accesskey="d" value="cs" id="dept" /></p>
+      <p>學年 (y): <input accesskey="y" value="94" id="year" /></p> 
+      <p><button accesskey="r" id="fetch">取得規則 (r)</button></p>
+    </div>
+    <div class="col">
+        <p>畢業條件檢測使用方法</p>
+      <ol>
+        <li>
+          輸入<a href="info.html">畢業規則</a><br/>
+          部份科系有<a href="info.html#rules">預先寫好的規則</a><br/>
+          輸入系別、學年，按下按鈕即可取得
+        </li>
+        <li>
+          輸入 portal 帳號、密碼再按檢測<br/>
+          在規則的右邊會出現檢測結果
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <textarea id="rules" rows="30" cols="50" class="col"></textarea>
+    <div class="col">
+      檢測結果
+      <div id="result"></div>
+    </div>
+  </div>
 </body>
 </html>

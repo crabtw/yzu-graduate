@@ -10,15 +10,23 @@ import Network.FastCGI
 import Lib.Interpreter
 import Lib.Test
 
-infoToText ((cur, min), pairs) = intercalate "\n" $ creditMsg : (map pairMsgs $ filter ((> 0) . fst) pairs)
-    where creditMsg = if min > cur then "不足 " ++ show (min - cur) ++ " 學分" else "學分足夠"
-          pairMsgs (remain, r) = "缺少 " ++ show remain ++ " 門" ++ ruleMsg r
-          ruleMsg (Mult e _) = case e of
-                                OneOf _ -> "，" ++ ruleMsg e
-                                _ -> ruleMsg e
-          ruleMsg (OneOf es) = intercalate "或" (map ruleMsg es)
-          ruleMsg (App s l) = cname ++ "為 " ++ show l ++ " 的課程"
-            where cname = fromJust $ lookup s [("type", "選別"), ("id", "課號"), ("name", "課名")]
+infoToText ((cur, min), pairs) = list $ creditMsg ++ allMsgs
+    where creditMsg = item $ if min > cur
+                                then "不足 " ++ setColor "red" (show (min - cur)) ++ " 學分"
+                                else "學分符合最低標準"
+          allMsgs = if null msgs then item "修習課程已達畢業條件" else concatMap item msgs
+            where msgs = map pairMsgs $ filter ((> 0) . fst) pairs
+          pairMsgs (remain, r) = "缺少 " ++ setColor "red" (show remain) ++ " 門" ++ ruleMsg r
+          ruleMsg (Mult e _) = ruleMsg e
+          ruleMsg (OneOf es) = list $ concatMap (item . (++"或") . ruleMsg) es
+          ruleMsg (App s l) = cname ++ " 為 " ++ setColor "purple" (show l) ++ " 的課程"
+            where cname = fromJust $ lookup s [("type", setColor "blue" "選別"),
+                                               ("id", setColor "teal" "課號"),
+                                               ("name", setColor "sienna" "課名")]
+
+setColor c s = "<span style=\"color:" ++ c ++ "\">" ++ s ++ "</span>"
+item s = "<li>" ++ s ++ "</li>"
+list s = "<ul>" ++ s ++ "</ul>"
 
 cgiMain (uid:pwd:rules:_) = do
     result <- liftIO $ test uid pwd rules

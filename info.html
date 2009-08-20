@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>規則說明</title>
+</head>
+<body>
+  <div>
+    <p>
+      程式會從 portal 取得已修過的課程清單，之後依規則順序檢查<br/>
+      每遇到一個規則除了檢查之外，還會將符合的課程從清單刪除，然後繼續下一個規則
+    </p>
+    <p>
+      首先規則開頭必須是 <code>min-credit</code> 說明「最低學分」，之後接的是課程規則<br/>
+      每個規則是以 <code>,</code> 作區隔，而 <code>--</code> 後面的文字在解讀時會被忽略，可以當作規則的註解
+    </p>
+    <p>
+      規則是以函數的方式表示，例如 <code>id("CS")</code> 是指「課號為 CS」的課程<br/>
+      文字必須用 <code>" "</code> 包起來。目前能夠使用的函數有
+    </p>
+    <ul>
+      <li><code>type</code>：課程的選別</li>
+      <li><code>id</code>：課程的課號</li>
+      <li><code>name</code>：課程的課名</li>
+    </ul>
+    <p>
+      函數的輸入不必是全名，部份也可以。函數只要找到一門比對正確的課程就會停止<br/>
+      如果要比對多個可以加 <code>*</code> 修飾，例如 <code>id("CS") * 3</code> 指的是「至少三門課號為 CS」的課程
+    </p>
+    <p>
+      如果要比對多門課程中任何一門，可以用 <code>|</code> 修飾<br/>
+      例如 <code>id("GN") | id("LS") | id("LE")</code> 指的是「課號為 GN 或課號為 LS 或課號為 LE」的課程
+    </p>
+    <p>
+      以上兩種修飾方式可以同時使用，而 <code>|</code> 優先權較低，有時候必須加 <code>( )</code><br/>
+      例如 <code>(id("GN") | id("LS")) * 2</code> 與 <code>id("GN") | id("LS") * 2</code> 是不同的<br/>
+      前者是指「至少兩門，課號為 GN 或課號為 LS」的課程<br/>
+      後者是指「課號為 GN 或至少兩門課號為 LS」的課程
+    </p>
+    <a name="rules"></a>
+    <p>
+      以下科系有預先寫好的規則，沒有列出的必須自行撰寫<br/>
+      或是將修業規定<a href="mailto:s941522@mail.yzu.edu.tw">寄給我</a>，但無法保證完成的時間
+    </p>
+    <ul>
+      <li>
+        資訊工程學系
+        <ul>
+          <li>系別：cs</li>
+          <li>學年：94 ~ 98</li>
+        </ul>
+      </li>
+      <li>
+        資訊管理學系
+        <ul>
+          <li>系別：im</li>
+          <li>學年：94 ~ 97</li>
+        </ul>
+      </li>
+      <li>
+        資訊傳播學系
+        <ul>
+          <li>系別：ic</li>
+          <li>學年：94 ~ 97</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,12 +1,12 @@
--- cse94
+-- cs95
 min-credit 142
 
 -- 必修
-type("必修") * 44,
+type("必修") * 45,
 
 -- 通識
 id("GN"), id("LS"), id("LE"), id("GS"),
-(id("GN") | id("LS") | id("LE") | id("GS")) * 2,
+id("GN") | id("LS") | id("LE") | id("GS"),
 
 -- 三選一
 id("CS359") | id("CS401") | id("CS334"),

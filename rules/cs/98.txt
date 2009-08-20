@@ -1,4 +1,4 @@
--- cse97
+-- cs98
 min-credit 136
 
 -- 必修

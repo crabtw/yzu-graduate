@@ -1,0 +1,12 @@
+-- im95
+min-credit 138
+
+-- 必修
+type("必修") * 47,
+
+-- 通識
+id("GN"), id("LS"), id("LE"), id("GS"),
+id("GN") | id("LS") | id("LE") | id("GS"),
+
+-- 系選修
+id("IM") * 9

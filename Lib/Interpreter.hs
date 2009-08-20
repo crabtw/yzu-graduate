@@ -18,7 +18,7 @@ data Lit = Str String
          | UInt Int
 
 instance Show Lit where
-    show (Str s) = "\"" ++ s ++ "\""
+    show (Str s) = s
     show (UInt i) = show i
 
 data Expr = Mult Expr Lit
